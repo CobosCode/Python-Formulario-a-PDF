@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/submit',
+                    data: $('form').serialize(),
+                    success: function(data) {
+                        var pdf_file = data['pdf_file'];
+                        window.location = '/' + pdf_file;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form>
+        <label>Nombre:</label>
+        <input type="text" name="name" required><br>
+
+        <label>Apellidos:</label>
+        <input type="text" name="last_name" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label>DNI:</label>
+        <input type="text" name="dni" required><br>
+
+        <label>Dirección:</label>
+        <input type="text" name="address" required><br>
+
+        <input type="submit" value="Generar PDF">
+    </form>
+</body>
